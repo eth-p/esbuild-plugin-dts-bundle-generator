@@ -1,6 +1,7 @@
 import * as builtins from 'builtin-modules';
 import * as esbuild from 'esbuild';
 
+import * as packageJson from './package.json';
 import esbuildPluginDtsBundleGenerator from './src/plugin';
 
 const config: esbuild.BuildOptions = {
@@ -10,7 +11,7 @@ const config: esbuild.BuildOptions = {
 	platform: 'node',
 	target: 'es2017',
 
-	external: [...builtins, './node_modules/*'],
+	external: [...builtins, ...Object.keys(packageJson.dependencies), './node_modules/*'],
 };
 
 (async () => {
@@ -18,14 +19,14 @@ const config: esbuild.BuildOptions = {
 	await esbuild.build({
 		...config,
 		format: 'esm',
-		outExtension: { ".js": '.mjs' },
+		outExtension: { '.js': '.mjs' },
 		plugins: [esbuildPluginDtsBundleGenerator({ printPerformanceMessage: true })],
 	});
 
 	// CommonJS
 	await esbuild.build({
 		...config,
-		outExtension: { ".js": '.cjs' },
+		outExtension: { '.js': '.cjs' },
 		format: 'cjs',
 	});
 })();

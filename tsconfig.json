@@ -6,6 +6,7 @@
 		"module": "CommonJS",
 		"moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
         "skipLibCheck": true,
 
 		"noEmit": true,
