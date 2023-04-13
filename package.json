@@ -17,7 +17,11 @@
 		"esbuild",
 		"esbuild-plugin"
 	],
-	"author": "eth-p",
+	"author": {
+		"name": "eth-p",
+		"email": "me+npm@eth-p.dev",
+		"url": "https://eth-p.dev/"
+	},
 	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/eth-p/esbuild-plugin-dts-bundle-generator/issues"

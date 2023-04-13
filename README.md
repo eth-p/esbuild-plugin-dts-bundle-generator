@@ -1,13 +1,27 @@
-import type {
-	CompilationOptions,
-	LibrariesOptions,
-	OutputOptions,
-	EntryPointConfig as _EntryPointConfig,
-} from 'dts-bundle-generator';
+# esbuild-plugin-dts-bundle-generator
 
-export type EntryPointConfig = Omit<_EntryPointConfig, 'filePath'>;
+An [esbuild](https://esbuild.github.io/) plugin to generate bundles of `.d.ts` definitions using [dts-bundle-generator](https://www.npmjs.com/package/dts-bundle-generator).
 
-export default interface Options {
+## Usage
+
+Inside your esbuild build script:
+
+```js
+import * as esbuild from 'esbuild';
+import esbuildPluginDtsBundleGenerator from 'esbuild-plugin-dts-bundle-generator';
+
+await esbuild.build({
+	// ...
+	plugins: [esbuildPluginDtsBundleGenerator(/* options */)],
+});
+```
+
+### Options
+
+Everything should just work out of the box, but there are a couple of options that can be changed:
+
+```typescript
+interface Options {
 	/**
 	 * Alternate entry points for generating d.ts files.
 	 * This follows the same format as `esbuild`'s `entryPoints` option.
@@ -23,11 +37,8 @@ export default interface Options {
 	tsconfig?: string;
 
 	/**
-	 * If true, a message outlining how long it took to build the bundles will be printed.
-	 */
-	printPerformanceMessage?: boolean;
-
-	/**
+	 * ADVANCED CONFIGURATION:
+	 *
 	 * A function that is called for each entry point file, creating an `EntryPointConfig` to be used by `dts-bundle-generator`.
 	 * This function cannot override the `filePath` property.
 	 *
@@ -52,5 +63,6 @@ export default interface Options {
 	 * The `CompilationOptions` given to `dts-bundle-generator`.
 	 * This cannot override the `entryPoints` property.
 	 */
-	compilationOptions?: Exclude<CompilationOptions, 'preferredConfigPath'>;
+	compilationOptions?: CompilationOptions;
 }
+```
