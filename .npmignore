@@ -1,0 +1,18 @@
+# Development
+node_modules
+.*
+build.cts
+tsconfig.json
+
+# Sources
+/src
+
+# System
+.DS_Store
+._*
+
+# IDEs
+.vscode
+*.code-workspace
+.idea
+*.iml
