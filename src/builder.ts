@@ -1,4 +1,5 @@
 import { writeFile } from 'node:fs/promises';
+import { join, normalize } from 'node:path';
 
 import type { CompilationOptions, EntryPointConfig, LibrariesOptions, OutputOptions } from 'dts-bundle-generator';
 import { generateDtsBundle } from 'dts-bundle-generator';
@@ -52,7 +53,7 @@ export default function createBundleBuilder(
 		// Save the bundles.
 		return {
 			warnings,
-			errors: (await saveBundles(mappings, generated)).error,
+			errors: (await saveBundles(mappings, esbuildOptions, generated)).error,
 		};
 	}
 
@@ -151,10 +152,14 @@ async function generateBundle(
  */
 async function saveBundles(
 	mapping: EntryPointMap,
+	esbuildOptions: BuildOptions,
 	generated: Set<{ in: string; outText: string }>,
 ): Promise<{ error: PartialMessage[] }> {
 	const results = await Promise.all(
-		Array.from(generated.values()).map(({ in: source, outText: data }) => saveBundle(mapping.get(source)!, data)),
+		Array.from(generated.values())
+			.map(({ in: source, outText }) => ({ out: mapping.get(source)!, outText }))
+			.map(({ out, outText }) => ({ outText, out: normalize(join(esbuildOptions.outdir ?? '.', out)) }))
+			.map(({ out, outText }) => saveBundle(out, outText)),
 	);
 
 	return {
