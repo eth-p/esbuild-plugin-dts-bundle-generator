@@ -1,0 +1,40 @@
+{
+	"name": "esbuild-plugin-dts-bundle-generator",
+	"version": "1.0.0",
+	"description": "...",
+	"main": "index.js",
+	"types": "index.d.ts",
+	"scripts": {
+		"test": "jest",
+		"build": "ts-node build.cts",
+		"format": "prettier -w src"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/eth-p/esbuild-plugin-dts-bundle-generator.git"
+	},
+	"keywords": [
+		"esbuild",
+		"esbuild-plugin"
+	],
+	"author": "eth-p",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/eth-p/esbuild-plugin-dts-bundle-generator/issues"
+	},
+	"homepage": "https://github.com/eth-p/esbuild-plugin-dts-bundle-generator#readme",
+	"dependencies": {
+		"dts-bundle-generator": "^8.0.0"
+	},
+	"devDependencies": {
+		"@babel/preset-env": "^7.21.4",
+		"@babel/preset-typescript": "^7.21.4",
+		"@trivago/prettier-plugin-sort-imports": "^4.1.1",
+		"@types/node": "^18.15.11",
+		"builtin-modules": "^3.3.0",
+		"esbuild": "^0.17.16",
+		"jest": "^29.5.0",
+		"prettier": "^2.8.7",
+		"ts-node": "^10.9.1"
+	}
+}

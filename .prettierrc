@@ -1,0 +1,12 @@
+{
+	"printWidth": 120,
+	"tabWidth": 4,
+	"useTabs": true,
+	"trailingComma": "all",
+	"singleQuote": true,
+	"semi": true,
+
+	"importOrder": ["^((@jest/)|jest)", "^node:", "^(?!\\.)", "^\\.\\./", "^\\./"],
+	"importOrderSeparation": true,
+	"importOrderSortSpecifiers": true
+}

@@ -1,0 +1,16 @@
+# Development
+node_modules
+
+# Artifacts
+/index.js
+/index.d.ts
+
+# System
+.DS_Store
+._*
+
+# IDEs
+.vscode
+*.code-workspace
+.idea
+*.iml
