@@ -2,8 +2,7 @@
 node_modules
 
 # Artifacts
-/index.js
-/index.d.ts
+/dist
 
 # System
 .DS_Store

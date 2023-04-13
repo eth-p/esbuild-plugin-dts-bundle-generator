@@ -1,5 +1,5 @@
 import { writeFile } from 'node:fs/promises';
-import { join, normalize } from 'node:path';
+import { dirname, join, normalize } from 'node:path';
 
 import type { CompilationOptions, EntryPointConfig, LibrariesOptions, OutputOptions } from 'dts-bundle-generator';
 import { generateDtsBundle } from 'dts-bundle-generator';
@@ -7,6 +7,7 @@ import type { BuildOptions, OnEndResult, OnStartResult, PartialMessage } from 'e
 
 import { EntryPointMap } from './mapping';
 import type Options from './options';
+import { ensureDir } from './util';
 
 /**
  * Create ESBuild plugin callbacks for generating TypeScript definition bundles.
@@ -175,6 +176,7 @@ async function saveBundles(
  */
 async function saveBundle(path: string, data: string): Promise<{ error: PartialMessage[] }> {
 	try {
+		await ensureDir(dirname(path));
 		await writeFile(`${path}.d.ts`, data, 'utf-8');
 		return { error: [] };
 	} catch (ex) {

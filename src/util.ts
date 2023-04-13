@@ -1,4 +1,4 @@
-import { access } from 'node:fs/promises';
+import { access, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { cwd } from 'node:process';
 
@@ -53,4 +53,12 @@ export function findTSConfigFile(from?: string | null): Promise<string> {
 			maybeComplete();
 		}
 	});
+}
+
+/**
+ * Ensures that a directory exists.
+ * @param path The path.
+ */
+export async function ensureDir(path: string): Promise<void> {
+	await mkdir(path, { recursive: true });
 }

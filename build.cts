@@ -3,15 +3,29 @@ import * as esbuild from 'esbuild';
 
 import esbuildPluginDtsBundleGenerator from './src/plugin';
 
+const config: esbuild.BuildOptions = {
+	entryPoints: { index: 'src/plugin.ts' },
+	bundle: true,
+	outdir: 'dist',
+	platform: 'node',
+	target: 'es2017',
+
+	external: [...builtins, './node_modules/*'],
+};
+
 (async () => {
+	// ESModules + Types
 	await esbuild.build({
-		entryPoints: { index: 'src/plugin.ts' },
-		bundle: true,
-		outdir: '.',
-		format: 'cjs',
-		target: 'es2017',
-		platform: 'node',
-		external: [...builtins, './node_modules/*'],
+		...config,
+		format: 'esm',
+		outExtension: { ".js": '.mjs' },
 		plugins: [esbuildPluginDtsBundleGenerator({ printPerformanceMessage: true })],
+	});
+
+	// CommonJS
+	await esbuild.build({
+		...config,
+		outExtension: { ".js": '.cjs' },
+		format: 'cjs',
 	});
 })();

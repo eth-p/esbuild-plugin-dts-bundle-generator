@@ -2,8 +2,13 @@
 	"name": "esbuild-plugin-dts-bundle-generator",
 	"version": "1.0.0",
 	"description": "...",
-	"main": "index.js",
-	"types": "index.d.ts",
+	"type": "commonjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
 	"scripts": {
 		"test": "jest",
 		"build": "ts-node build.cts",
